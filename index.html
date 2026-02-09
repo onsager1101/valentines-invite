@@ -1,60 +1,128 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Invite</title>
-    <style>
-        body {
-            background-color: white;
-            color: black;
-            font-family: Arial, sans-serif;
-            text-align: left;
-            margin: 0;
-            padding: 20px;
-        }
-        button {
-            padding: 10px 15px;
-            margin: 5px;
-            cursor: pointer;
-            background-color: black;
-            color: white;
-            border: none;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Valentine</title>
+  <style>
+    :root {
+      --bg: #000;
+      --fg: #fff;
+      --muted: rgba(255,255,255,.7);
+      --border: rgba(255,255,255,.25);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    /* Top-left layout */
+    .wrap {
+      padding: 28px;
+      max-width: 720px;
+    }
+
+    .prompt {
+      font-size: 1.25rem;
+      line-height: 1.5;
+      letter-spacing: 0.2px;
+      margin: 0 0 18px;
+    }
+
+    .btns {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 0 0 22px;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--fg);
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+      min-width: 110px;
+      text-align: center;
+    }
+
+    button:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.35); }
+    button:active { transform: translateY(1px); }
+
+    .hint {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 6px;
+      min-height: 1.2em;
+    }
+
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    img {
+      margin-top: 14px;
+      width: min(520px, 92vw);
+      max-width: 520px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      display: block;
+    }
+  </style>
 </head>
 <body>
-    <h1>Welcome to the Valentine's Invite!</h1>
-    <div id="screen-1">
-        <p>Will you be my Valentine?</p>
-        <button onclick="nextScreen('screen-2')">Yes</button>
-        <button onclick="nextScreen('screen-2')">Maybe</button>
-    </div>
-    <div id="screen-2" style="display:none;">
-        <p>What do you prefer to do on a romantic date?</p>
-        <button onclick="nextScreen('screen-3')">Yes</button>
-        <button onclick="nextScreen('screen-3')">Maybe</button>
-    </div>
-    <div id="screen-3" style="display:none;">
-        <p>Are you excited about our date?</p>
-        <button onclick="nextScreen('final-screen')">Yes</button>
-        <button onclick="nextScreen('final-screen')">Maybe</button>
-    </div>
-    <div id="final-screen" style="display:none;">
-        <p>It will be a wonderful experience!</p>
-    </div>
+  <main class="wrap">
+    <!-- Screen 1 -->
+    <section id="s1" class="screen active">
+      <p class="prompt">
+        Ashlyn, you asked for a valentines day card. This is better. Will you be my valentines.
+      </p>
+      <div class="btns">
+        <button id="s1-yes">Yes</button>
+        <button id="s1-maybe">Maybe</button>
+      </div>
+      <div class="hint"></div>
+    </section>
 
-    <script>
-        function nextScreen(screenId) {
-            var screens = document.querySelectorAll('div[id^="screen-"]');
-            screens.forEach(function(screen) {
-                screen.style.display = 'none';
-            });
-            document.getElementById(screenId).style.display = 'block';
-        }
+    <!-- Screen 2 -->
+    <section id="s2" class="screen">
+      <p class="prompt">Seriously?</p>
+      <div class="btns">
+        <button id="s2-yes">Yes</button>
+        <button id="s2-maybe">Maybe</button>
+      </div>
+      <div class="hint"></div>
+    </section>
 
-        // Start at first screen
-        nextScreen('screen-1');
-    </script>
+    <!-- Screen 3 -->
+    <section id="s3" class="screen">
+      <p class="prompt">Wonderful.</p>
+      <img src="Evite.jpg" alt="Valentine invite image" />
+    </section>
+  </main>
+
+  <script>
+    function show(id) {
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    // Screen 1 -> Screen 2 no matter what
+    document.getElementById("s1-yes").addEventListener("click", () => show("s2"));
+    document.getElementById("s1-maybe").addEventListener("click", () => show("s2"));
+
+    // Screen 2 -> Screen 3 no matter what
+    document.getElementById("s2-yes").addEventListener("click", () => show("s3"));
+    document.getElementById("s2-maybe").addEventListener("click", () => show("s3"));
+  </script>
 </body>
 </html>
