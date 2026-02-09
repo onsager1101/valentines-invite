@@ -4,9 +4,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine's Invite</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            color: #e91e63;
+            font-size: 28px;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .btn-yes {
+            background-color: #e91e63;
+            color: white;
+        }
+
+        .btn-yes:hover {
+            background-color: #c2185b;
+            transform: scale(1.05);
+        }
+
+        .btn-maybe {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .btn-maybe:hover {
+            background-color: #f57c00;
+            transform: scale(1.05);
+        }
+
+        .image-container {
+            margin-top: 20px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+        }
+
+        .message {
+            font-size: 24px;
+            color: #e91e63;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Ashlyn, you asked for a valentines day card. This is better. Will you be my Valentine?</h1>
-    <!-- Additional content -->
+    <div class="container">
+        <!-- Screen 1: Initial Question -->
+        <div class="screen active" id="screen1">
+            <h1>Ashlyn, you asked for a valentines day card. This is better. Will you be my valentine?</h1>
+            <div class="button-group">
+                <button class="btn-yes" onclick="goToScreen2()">Yes</button>
+                <button class="btn-maybe" onclick="goToScreen2()">Maybe</button>
+            </div>
+        </div>
+
+        <!-- Screen 2: Confirmation Question -->
+        <div class="screen" id="screen2">
+            <h1>Are you sure?</h1>
+            <div class="button-group">
+                <button class="btn-yes" onclick="showResult()">Yes</button>
+                <button class="btn-maybe" onclick="goToScreen1()">Maybe</button>
+            </div>
+        </div>
+
+        <!-- Screen 3: Result -->
+        <div class="screen" id="screen3">
+            <div class="message">🎉 Yay! I'm so happy! 🎉</div>
+            <div class="image-container">
+                <img src="Evite.jpg" alt="Valentine's Day">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goToScreen1() {
+            setActive('screen1');
+        }
+
+        function goToScreen2() {
+            setActive('screen2');
+        }
+
+        function showResult() {
+            setActive('screen3');
+        }
+
+        function setActive(screenId) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            // Show the target screen
+            document.getElementById(screenId).classList.add('active');
+        }
+    </script>
 </body>
 </html>
