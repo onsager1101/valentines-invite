@@ -8,13 +8,53 @@
         body {
             background-color: white;
             color: black;
+            font-family: Arial, sans-serif;
             text-align: left;
+            margin: 0;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: black;
+            color: white;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Valentine's Invite</h1>
-    <p>Your kind presence is requested at my Valentine's celebration!</p>
-    <p>Let's make this day wonderful!</p>
+    <h1>Welcome to the Valentine's Invite!</h1>
+    <div id="screen-1">
+        <p>Will you be my Valentine?</p>
+        <button onclick="nextScreen('screen-2')">Yes</button>
+        <button onclick="nextScreen('screen-2')">Maybe</button>
+    </div>
+    <div id="screen-2" style="display:none;">
+        <p>What do you prefer to do on a romantic date?</p>
+        <button onclick="nextScreen('screen-3')">Yes</button>
+        <button onclick="nextScreen('screen-3')">Maybe</button>
+    </div>
+    <div id="screen-3" style="display:none;">
+        <p>Are you excited about our date?</p>
+        <button onclick="nextScreen('final-screen')">Yes</button>
+        <button onclick="nextScreen('final-screen')">Maybe</button>
+    </div>
+    <div id="final-screen" style="display:none;">
+        <p>It will be a wonderful experience!</p>
+    </div>
+
+    <script>
+        function nextScreen(screenId) {
+            var screens = document.querySelectorAll('div[id^="screen-"]');
+            screens.forEach(function(screen) {
+                screen.style.display = 'none';
+            });
+            document.getElementById(screenId).style.display = 'block';
+        }
+
+        // Start at first screen
+        nextScreen('screen-1');
+    </script>
 </body>
 </html>
