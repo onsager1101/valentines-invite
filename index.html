@@ -70,4 +70,76 @@
       text-underline-offset: 4px;
     }
 
-    .btn:hover { o
+    .btn:hover { opacity: .7; }
+    .btn:active { opacity: .55; }
+
+    /* Optional: remove focus ring edges; still shows via underline + opacity */
+    .btn:focus { outline: none; }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 6px;
+    }
+
+    img {
+      margin-top: 14px;
+      width: min(520px, 92vw);
+      max-width: 520px;
+      display: block;
+
+      /* no edges/rounding */
+      border: none;
+      border-radius: 0;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <!-- Screen 1 -->
+    <section id="s1" class="screen active">
+      <p class="prompt">
+        Ashlyn, you asked for a valentines day card. This is better.<br>
+        Will you be my valentine?
+      </p>
+
+      <div class="btns">
+        <button class="btn" id="s1-yes" type="button">Yes</button>
+        <button class="btn" id="s1-maybe" type="button">Maybe</button>
+      </div>
+    </section>
+
+    <!-- Screen 2 -->
+    <section id="s2" class="screen">
+      <p class="prompt">Seriously?</p>
+
+      <div class="btns">
+        <button class="btn" id="s2-yes" type="button">Yes</button>
+        <button class="btn" id="s2-maybe" type="button">Maybe</button>
+      </div>
+    </section>
+
+    <!-- Screen 3 -->
+    <section id="s3" class="screen">
+      <p class="prompt">Wonderful.</p>
+      <img src="Evite.jpg" alt="Valentine invite image" />
+      <p class="small">(You can close this tab now.)</p>
+    </section>
+  </main>
+
+  <script>
+    function show(id) {
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    // Screen 1 -> Screen 2 (either click)
+    document.getElementById("s1-yes").onclick = () => show("s2");
+    document.getElementById("s1-maybe").onclick = () => show("s2");
+
+    // Screen 2 -> Screen 3 (either click)
+    document.getElementById("s2-yes").onclick = () => show("s3");
+    document.getElementById("s2-maybe").onclick = () => show("s3");
+  </script>
+</body>
+</html>
