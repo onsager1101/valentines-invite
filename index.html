@@ -9,7 +9,6 @@
       --bg: #fff;
       --fg: #000;
       --muted: rgba(0,0,0,.6);
-      --border: rgba(0,0,0,.35);
     }
 
     * { box-sizing: border-box; }
@@ -19,113 +18,56 @@
       min-height: 100vh;
       background: var(--bg);
       color: var(--fg);
+
+      /* “tech basic” monospace everywhere */
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-             "Liberation Mono", "Courier New", monospace;
+                   "Liberation Mono", "Courier New", monospace;
+
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* IMPORTANT: buttons/inputs often use a different default font unless forced */
+    button, input, textarea, select {
+      font: inherit;     /* makes them match the prompt font */
+      color: inherit;
     }
 
     /* Top-left layout */
     .wrap {
       padding: 28px;
-      max-width: 720px;
-    }
-
-    .prompt {
-      font-size: 1.25rem;
-      line-height: 1.5;
-      letter-spacing: 0.2px;
-      margin: 0 0 18px;
-    }
-
-    .btns {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 0 0 22px;
-    }
-
-    button {
-      appearance: none;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--fg);
-      padding: 10px 14px;
-      border-radius: 0; /* square edges */
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background .15s ease, border-color .15s ease;
-      min-width: 110px;
-      text-align: center;
-    }
-
-    button:hover {
-      background: rgba(0,0,0,.05);
-      border-color: rgba(0,0,0,.6);
-    }
-
-    .hint {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-top: 6px;
-      min-height: 1.2em;
+      max-width: 760px;
     }
 
     .screen { display: none; }
     .screen.active { display: block; }
 
-    img {
-      margin-top: 14px;
-      width: min(520px, 92vw);
-      max-width: 520px;
-      border: 1px solid var(--border);
-      border-radius: 0; /* square edges */
-      display: block;
-    }
-  </style>
-</head>
-<body>
-  <main class="wrap">
-    <!-- Screen 1 -->
-    <section id="s1" class="screen active">
-      <p class="prompt">
-        Ashlyn, you asked for a valentines day card. This is better. Will you be my valentine? <br>
-      </p>
-      <div class="btns">
-        <button id="s1-yes">Yes</button>
-        <button id="s1-maybe">Maybe</button>
-      </div>
-    </section>
+    .prompt {
+      margin: 0 0 16px;
+      font-size: 1.25rem;
+      line-height: 1.55;
 
-    <!-- Screen 2 -->
-    <section id="s2" class="screen">
-      <p class="prompt">Seriously?</p>
-      <div class="btns">
-        <button id="s2-yes">Yes</button>
-        <button id="s2-maybe">Maybe</button>
-      </div>
-    </section>
-
-    <!-- Screen 3 -->
-    <section id="s3" class="screen">
-      <p class="prompt">Wonderful.</p>
-      <img src="Evite.jpg" alt="Valentine invite image" />
-    </section>
-  </main>
-
-  <script>
-    function show(id) {
-      document.querySelectorAll(".screen").forEach(s =>
-        s.classList.remove("active")
-      );
-      document.getElementById(id).classList.add("active");
+      /* no “box” edges */
+      border: none;
+      outline: none;
+      background: transparent;
     }
 
-    // Screen 1 -> Screen 2
-    document.getElementById("s1-yes").onclick = () => show("s2");
-    document.getElementById("s1-maybe").onclick = () => show("s2");
+    .btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 0 0 18px;
+    }
 
-    // Screen 2 -> Screen 3
-    document.getElementById("s2-yes").onclick = () => show("s3");
-    document.getElementById("s2-maybe").onclick = () => show("s3");
-  </script>
-</body>
-</html>
+    /* Text-only buttons: no borders, no rounding, no boxes */
+    .btn {
+      border: none;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .btn:hover { o
